@@ -1,0 +1,13 @@
+Package: abbrevTexts
+Type: Package
+Title: Functions that will make life less sad when working with abbreviated text for multiclassification tasks
+Version: 0.1.0
+Author: Ananiev Genrikh
+Maintainer: Ananiev Genrikh <edvardoss@gmail.com>
+Description: Typically, the classification of texts follows the beaten path of stemming, using stop words and clearing low-frequency words from the matrix at a given threshold.
+    But when it comes to short, concise abbreviated texts (often with a mixture of several languages), with a large number of classes and a small number of examples in each class, then the task becomes non-trivial (the best example in business is training a model on the classification of product directories).
+    The package facilitates the solution of such specific tasks that are not so rare in business.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
