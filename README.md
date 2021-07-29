@@ -203,6 +203,8 @@ Such chains can be of arbitrary length and it is possible to assemble from the f
 5. Recursively iterating through the found pairs to determine the final (terminal) child for all members of chains
 6. Return the abbreviation dictionary 
 
+The makeAbbrStemDict function is automatically paralleled by several threads loading all the processor cores, so it is advisable to take this point into account for large volumes of texts.
+
 ```{r}
 abrDict <- makeAbbrStemDict(term.vec = df$word,min.len = 3,min.share = .6)
 head(abrDict) # We can see parent word, intermediate results and total result (terminal child)
