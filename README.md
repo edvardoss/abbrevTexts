@@ -196,3 +196,59 @@ bodegas->bodeg->bode
 
 So we come to a table of the form:
 
+![06_tab](https://user-images.githubusercontent.com/16530092/127467414-75967142-dc17-483a-b51f-f328b6ee6132.PNG)
+
+Such chains can be of arbitrary length and it is possible to assemble from the found pairs into such chains recursively. Thus we come to the 5th stage of determining the final child for each participant of the constructed chain of abbreviations of words
+
+5. Recursively iterating through the found pairs to determine the final (terminal) child for all members of chains
+6. Return the abbreviation dictionary 
+
+```{r}
+abrDict <- makeAbbrStemDict(term.vec = df$word,min.len = 3,min.share = .6)
+head(abrDict) # We can see parent word, intermediate results and total result (terminal child)
+```
+
+![07_tab](https://user-images.githubusercontent.com/16530092/127467721-31432299-cf30-40ca-9897-9b14289d3421.PNG)
+
+## Stem using abbreviate dictionary 
+```{r}
+df.AbbrStem <- df %>% left_join(abrDict %>% select(parent,terminal.child),by = c('word'='parent')) %>% 
+    mutate(wordAbbrStem=coalesce(terminal.child,word)) %>% select(-terminal.child)
+print(df.AbbrStem)
+```
+
+![08_tab](https://user-images.githubusercontent.com/16530092/127467969-6350e09a-69ec-433c-a933-fe8e526cce65.PNG)
+
+## TF-IDF for stemmed words
+
+```{r}
+df.AbbrStem <- df.AbbrStem %>% count(StandartId,prodId,wordAbbrStem) %>% 
+  bind_tf_idf(term = wordAbbrStem,document = prodId,n = n)
+print(df.AbbrStem)
+```
+
+![09_tab](https://user-images.githubusercontent.com/16530092/127468157-71ea56d6-07f0-4198-95e2-a8ebb97631a0.PNG)
+
+## Create document terms matrix
+
+```{r}
+dtm.AbbrStem <- df.AbbrStem %>% 
+  cast_dtm(document = prodId,term = wordAbbrStem,value = tf_idf) %>% data.matrix()
+```
+
+## Create knn model for 'abbrevTexts mode' and calculate accuracy
+
+```{r}
+knn.AbbrStem <- class::knn1(train = dtm.AbbrStem[trainSample,],
+                                test = dtm.AbbrStem[testSample,],
+                                cl = rawProducts$StandartId[trainSample])
+mean(knn.AbbrStem==rawProducts$StandartId[testSample]) 
+```
+
+**Accuracy for "abbrevTexts": 0.8333333 (83%)**
+
+As you can see , we have received significant improvements in the quality of classification in the test sample.
+Tidytext is a convenient package for a small courpus of texts, but in the case of a large courpus of texts, the "Abbrevitexts" package is also perfectly suitable for preprocessing and normalization and usually gives better accuracy in such specific tasks compared to the traditional approach.
+
+
+
