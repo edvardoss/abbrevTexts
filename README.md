@@ -38,7 +38,7 @@ As part of this class task (where the length of the text field input is often li
 How to pass toochenization from the box on your favorite programming language for the name of wine "Dom.CHRISTIANmoreau0,75LPeМЂr.EtFilChablis" ?
 (Unfortunately it's not a joke)
 
-Stemming.
+[Stemming.](https://en.wikipedia.org/wiki/Stemming)
 
 Product names are not text in a classic understanding of the task (such as news from sites, services reviews or newspaper headers) which is amenable to release suffix that can be discarded.
 In the names of products, abbreviations are often present and the reductions of words of which are not clear how to allocate this suffix.
@@ -190,4 +190,9 @@ Let's go back to the example with unambiguous abbreviations of words
 ![04_tab](https://user-images.githubusercontent.com/16530092/127465087-2924784e-de17-4eb2-a48b-6eb68ae43c52.PNG)
 
 
+But if you look a little more closely, we see that there is a common word 'bodeg' for these 2 pairs and this word allows you to connect these pairs into one chain of abbreviations without violating our initial conditions on the length of a word to consider it an abbreviation of another word: 
+
+bodegas->bodeg->bode
+
+So we come to a table of the form:
 
