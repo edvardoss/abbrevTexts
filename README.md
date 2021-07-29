@@ -67,7 +67,7 @@ library(tidytext)
 library(dplyr)
 library(stringr)
 library(abbrevTexts)
-library(knitr)
+library(SnowballC)
 ```
 
 The package includes 2 data sets on the names of wines: the original names of wines from external data sources - "rawProducts" and the unified names of wines written in the standards for maintaining the company's master data - "standardProducts".
