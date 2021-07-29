@@ -63,10 +63,11 @@ We will use tidytext as an auxiliary package.
 # Case example
 
 ```{r,message=FALSE}
+devtools::install_github(repo = 'https://github.com/edvardoss/abbrevTexts')
+library(abbrevTexts)
 library(tidytext)
 library(dplyr)
 library(stringr)
-library(abbrevTexts)
 library(SnowballC)
 ```
 
