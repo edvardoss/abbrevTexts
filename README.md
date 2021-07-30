@@ -27,30 +27,30 @@ Secondly, the number of documents (different variations of the same product) in 
 
 Consider the shortcomings of the classic text processing approach by steps:
 
-Stop words.
+* Stop words.
 
 In such tasks there are no stop-words in the generally accepted concepts of any text processing package.
 
-Tochenization
+* Tochenization
 
 In classic packages from the box, the division of text on words is based on the presence of punctuation or spaces.
 As part of this class task (where the length of the text field input is often limited), it is not uncommon to receive product names without spaces where words are not clearly separated, but visually on the register of numbers or other language.
 How to pass toochenization from the box on your favorite programming language for the name of wine "Dom.CHRISTIANmoreau0,75LPeМЂr.EtFilChablis" ?
 (Unfortunately it's not a joke)
 
-[Stemming.](https://en.wikipedia.org/wiki/Stemming)
+* [Stemming.](https://en.wikipedia.org/wiki/Stemming)
 
 Product names are not text in a classic understanding of the task (such as news from sites, services reviews or newspaper headers) which is amenable to release suffix that can be discarded.
 In the names of products, abbreviations are often present and the reductions of words of which are not clear how to allocate this suffix.
 And there are also the names of the brands from another language group (for example, the inclusion of the brands of French or Italian) that are not amenable to a normal stemming.
 
-Reducing matrices.
+* Reducing matrices.
 
 Often, when building "Document-Term" matrices, the package of your language offers to reduce the sparsity of matrices to remove words (columns of the matrix) with a frequency below some minimum threshold.
 And in classical tasks, it really helps improve quality and reduce overhead in the training of the model.
 But not in such tasks. Above, I have already written that the distribution of classes is not strongly balanced - it can easily be on the same product name to the class (for example, a rare and expensive brand that has sold it for the first time and while there is only one time in the training sample). The classic approach of sparsity reduction we bring the quality of the classifier.
 
-Training the model.
+* Training the model.
 
 Usually, some kind of model is trained on texts (LibSVM, naive Bayesian classifier, neural networks, or something else) which is then used repeatedly.
 In this case, new classes can appear daily and the number of documents in the class can be counted as a single instance.
@@ -271,7 +271,7 @@ mean(knn.AbbrStem==rawProducts$StandartId[testSample])
 **Accuracy for "abbrevTexts": 0.8333333 (83%)**
 
 As you can see , we have received significant improvements in the quality of classification in the test sample.
-Tidytext is a convenient package for a small courpus of texts, but in the case of a large courpus of texts, the "Abbrevitexts" package is also perfectly suitable for preprocessing and normalization and usually gives better accuracy in such specific tasks compared to the traditional approach.
+Tidytext is a convenient package for a small courpus of texts, but in the case of a large courpus of texts, the "AbbrevTexts" package is also perfectly suitable for preprocessing and normalization and usually gives better accuracy in such specific tasks compared to the traditional approach.
 
 
 
