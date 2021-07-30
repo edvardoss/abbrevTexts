@@ -214,7 +214,8 @@ abrDict <- makeAbbrStemDict(term.vec = df$word,min.len = 3,min.share = .6)
 head(abrDict) # We can see parent word, intermediate results and total result (terminal child)
 ```
 
-![07_tab](https://user-images.githubusercontent.com/16530092/127467721-31432299-cf30-40ca-9897-9b14289d3421.PNG)
+![07_tab](https://user-images.githubusercontent.com/16530092/127615663-846228b0-e1d8-4da0-9f36-8a66e022333b.PNG)
+
 
 The output of the stemming dictionary in the form of a table is also convenient because it is possible to selectively and in a simple way in the "dplyr" paradigm to delete some of the stemming lines.
 
@@ -228,7 +229,8 @@ print(abrDict.reduced)
 ![10_tab](https://user-images.githubusercontent.com/16530092/127614613-e4e8659e-9168-44c4-a85f-79be74654c18.PNG)
 
 Compare the simplicity and clarity of this solution with what is offered in stackoverflow:
-(Text-mining with the tm-package - word stemming)[https://stackoverflow.com/questions/16069406/text-mining-with-the-tm-package-word-stemming]
+
+[Text-mining with the tm-package - word stemming](https://stackoverflow.com/questions/16069406/text-mining-with-the-tm-package-word-stemming)
 
 ## Stem using abbreviate dictionary 
 ```{r}
@@ -247,7 +249,8 @@ df.AbbrStem <- df.AbbrStem %>% count(StandartId,prodId,wordAbbrStem) %>%
 print(df.AbbrStem)
 ```
 
-![09_tab](https://user-images.githubusercontent.com/16530092/127468157-71ea56d6-07f0-4198-95e2-a8ebb97631a0.PNG)
+![09_tab](https://user-images.githubusercontent.com/16530092/127615790-e477b417-f8f2-4321-be3d-90406b4ee48d.PNG)
+
 
 ## Create document terms matrix
 
