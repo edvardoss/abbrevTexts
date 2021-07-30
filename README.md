@@ -1,3 +1,8 @@
+---
+author: "Genrikh Ananiev"
+date: "26-05-2021"
+---
+
 # Problem description
 Under business conditions, narrowly specialized tasks often come across, which require a special approach because they do not fit into the standard data processing flow and constructing models.
 One of these tasks is the classification of new products in master data management process (MDM).
