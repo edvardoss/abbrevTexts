@@ -65,11 +65,11 @@ We will use tidytext as an auxiliary package.
 ```{r,message=FALSE}
 devtools::install_github(repo = 'https://github.com/edvardoss/abbrevTexts')
 library(abbrevTexts)
-library(tidytext)
-library(dplyr)
-library(stringr)
-library(SnowballC)
-library(tm)
+library(tidytext) # text proccessing
+library(dplyr) # data processing
+library(stringr) # data processing
+library(SnowballC) # traditional stemming approach
+library(tm) #need only for tidytext internal purpose
 ```
 
 The package includes 2 data sets on the names of wines: the original names of wines from external data sources - "rawProducts" and the unified names of wines written in the standards for maintaining the company's master data - "standardProducts".
@@ -142,7 +142,7 @@ knn.SnowballStem <- class::knn1(train = dtm.SnowballStem[trainSample,],
 mean(knn.SnowballStem==rawProducts$StandartId[testSample])
 ```
 
-**Accuracy is: 0.5238095 (52%)**
+**Accuracy is: 0.5 (50%)**
 
 # abbrevTexts primer
 
@@ -162,6 +162,8 @@ print(df)
 As you can see, the tokenization of the text was carried out correctly: not only transitions from upper and lower case when writing together are taken into account, but also punctuation marks between words written together without spaces are taken into account.
 
 ## Creating a stemming dictionary based on a training sample of words
+
+After a long search among different stemming implementations, I came to the conclusion that traditional methods based on the rules of the language are not suitable for such specific tasks, so I had to look for my own approach. As a result, I came to the most optimal solution, which was reduced to unsupervised learning, which is not sensitive to the text language or the degree of reduction of the available words in the training sample.
 
 The function takes a vector of words as input, the minimum word length for the training sample and the minimum fraction for considering the child word as an abbreviation of the parent word and then does the following:
 
@@ -213,6 +215,20 @@ head(abrDict) # We can see parent word, intermediate results and total result (t
 ```
 
 ![07_tab](https://user-images.githubusercontent.com/16530092/127467721-31432299-cf30-40ca-9897-9b14289d3421.PNG)
+
+The output of the stemming dictionary in the form of a table is also convenient because it is possible to selectively and in a simple way in the "dplyr" paradigm to delete some of the stemming lines.
+
+Lets say that we wont to exclude parent word "abruzz" and terminal child group "absolu" from stemming dictionary:
+
+```{r}
+abrDict.reduced <- abrDict %>% filter(parent!='abruzz',terminal.child!='absolu')
+print(abrDict.reduced)
+```
+
+![10_tab](https://user-images.githubusercontent.com/16530092/127614613-e4e8659e-9168-44c4-a85f-79be74654c18.PNG)
+
+Compare the simplicity and clarity of this solution with what is offered in stackoverflow:
+(Text-mining with the tm-package - word stemming)[https://stackoverflow.com/questions/16069406/text-mining-with-the-tm-package-word-stemming]
 
 ## Stem using abbreviate dictionary 
 ```{r}
