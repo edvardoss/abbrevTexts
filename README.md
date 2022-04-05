@@ -3,7 +3,7 @@ author: "Genrikh Ananiev"
 date: "26-05-2021"
 ---
 
-# Text processing and word stemming for classification models  in master data management (MDM) context in R
+# Tidy-stemming for classification models  in master data management (MDM) context in R
 
 **Problem description**
 
